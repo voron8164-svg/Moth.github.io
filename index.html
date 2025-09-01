@@ -22,7 +22,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 12px;
+            padding: 20px;
             position: relative;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -71,184 +71,231 @@
                 rgba(20, 10, 35, 0.98) 50%,
                 rgba(30, 15, 50, 0.96) 100%);
             backdrop-filter: blur(12px);
-            border-radius: 18px;
-            padding: 20px 15px;
+            border-radius: 20px;
+            padding: 30px 25px;
             width: 100%;
-            max-width: 500px;
+            max-width: 900px;
             box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.8),
+                0 15px 40px rgba(0, 0, 0, 0.9),
                 0 0 0 1px rgba(138, 43, 226, 0.25);
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(138, 43, 226, 0.35);
+            /* Убираем скроллбар */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        /* Убираем скроллбар для Webkit */
+        .container::-webkit-scrollbar {
+            display: none;
         }
         
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
-            padding: 0 5px;
+            padding: 0 10px;
         }
         
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             background: linear-gradient(to right, #9370db, #8a2be2, #6a5acd);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 12px rgba(138, 43, 226, 0.5);
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             color: #b19cd9;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 500;
+            letter-spacing: 1px;
         }
         
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 25px;
-            padding: 0 5px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+            padding: 0 10px;
         }
         
         .price-item {
             background: linear-gradient(135deg, 
                 rgba(138, 43, 226, 0.12), 
                 rgba(106, 90, 205, 0.08));
-            padding: 12px 10px;
-            border-radius: 12px;
+            padding: 15px 12px;
+            border-radius: 15px;
             text-align: center;
             border: 1px solid rgba(138, 43, 226, 0.25);
         }
         
         .price-label {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #d8c7ff;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             font-weight: 500;
         }
         
         .price-value {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #9370db;
             font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 8px rgba(147, 112, 219, 0.3);
+            text-shadow: 0 0 10px rgba(147, 112, 219, 0.4);
         }
         
         .menu-section {
-            margin: 25px 0 15px 0;
-            padding: 0 5px;
+            margin: 35px 0 25px 0;
+            padding: 0 10px;
         }
         
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: #9370db;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 6px rgba(147, 112, 219, 0.3);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(147, 112, 219, 0.4);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #8a2be2, #6a5acd);
+            border-radius: 2px;
         }
         
         .menu-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
         
         .item-card {
             background: linear-gradient(135deg, 
                 rgba(40, 20, 65, 0.7), 
                 rgba(30, 15, 50, 0.8));
-            padding: 15px;
-            border-radius: 14px;
+            padding: 20px;
+            border-radius: 16px;
             border: 1px solid rgba(138, 43, 226, 0.3);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-            /* Убраны все взаимодействия */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            /* Убираем взаимодействия */
             user-select: none;
             -webkit-user-select: none;
             pointer-events: none;
         }
         
         .item-name {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #b19cd9;
             font-family: 'Orbitron', sans-serif;
         }
         
         .item-desc {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #d8c7ff;
-            line-height: 1.4;
+            line-height: 1.5;
             font-weight: 400;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .item-type {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 5px 12px;
             background: rgba(138, 43, 226, 0.18);
             color: #b19cd9;
             border-radius: 12px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 500;
             border: 1px solid rgba(138, 43, 226, 0.25);
         }
         
         .footer-note {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 35px;
             color: #b19cd9;
-            font-size: 0.9rem;
-            padding-top: 15px;
+            font-size: 1.1rem;
+            padding-top: 20px;
             border-top: 1px solid rgba(138, 43, 226, 0.25);
             font-weight: 500;
         }
 
-        /* Улучшенная прокрутка для мобильных */
-        .container {
-            -webkit-overflow-scrolling: touch;
-            overflow-y: auto;
-            max-height: 90vh;
-        }
-
-        /* Оптимизация для очень маленьких экранов */
-        @media (max-width: 380px) {
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 500px;
+                padding: 20px 15px;
+            }
+            
             h1 {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
             }
             
             .section-title {
-                font-size: 1.3rem;
+                font-size: 1.6rem;
             }
-            
-            .price-value {
-                font-size: 1.1rem;
-            }
-            
-            .item-name {
-                font-size: 1rem;
-            }
-            
-            .item-desc {
-                font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
             }
             
             .container {
                 padding: 15px 12px;
                 border-radius: 16px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .price-item {
+                padding: 12px 10px;
+            }
+            
+            .price-value {
+                font-size: 1.2rem;
+            }
+            
+            .item-name {
+                font-size: 1.1rem;
+            }
+            
+            .item-desc {
+                font-size: 0.9rem;
             }
         }
 
@@ -292,73 +339,73 @@
             <div class="menu-grid">
                 <div class="item-card">
                     <div class="item-name">ВИШНЕВЫЙ ПУЭР</div>
-                    <div class="item-desc">Выдержанный пуэр с насыщенным вкусом спелой вишни</div>
+                    <div class="item-desc">Выдержанный пуэр с насыщенным вкусом спелой вишни. Глубокий аромат с фруктовыми нотами.</div>
                     <span class="item-type">Ферментированный</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">МЯТА-МЕЛИССА</div>
-                    <div class="item-desc">Освежающий дуэт мяты и мелиссы для релаксации</div>
+                    <div class="item-desc">Освежающий дуэт мяты и мелиссы с успокаивающим эффектом. Идеален для релаксации.</div>
                     <span class="item-type">Травяной</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">ЗЕМЛЯНИКА СО СЛИВКАМИ</div>
-                    <div class="item-desc">Нежный чай с ароматом спелой земляники</div>
+                    <div class="item-desc">Нежный чай с ароматом спелой земляники и сливочными нотками. Настоящее наслаждение.</div>
                     <span class="item-type">Фруктовый</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">АССАМ</div>
-                    <div class="item-desc">Классический индийский чай с терпким ароматом</div>
+                    <div class="item-desc">Классический индийский чай с насыщенным вкусом и терпким ароматом. Бодрящий и тонизирующий.</div>
                     <span class="item-type">Чёрный</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">СЕНЧА</div>
-                    <div class="item-desc">Японский зеленый чай, богат антиоксидантами</div>
+                    <div class="item-desc">Японский зеленый чай с нежным травянистым вкусом и свежим ароматом. Богат антиоксидантами.</div>
                     <span class="item-type">Зелёный</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">КОРОЛЕВСКИЙ КАРКАДЭ</div>
-                    <div class="item-desc">Благородный каркаде с изысканной кислинкой</div>
+                    <div class="item-desc">Благородный каркаде с насыщенным рубиновым цветом и изысканной кислинкой. Подается холодным.</div>
                     <span class="item-type">Цветочный</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">ИСКРЫ ШАМПАНСКОГО</div>
-                    <div class="item-desc">Игристый чай с нотками винограда и персика</div>
+                    <div class="item-desc">Игристый чай с нотками белого винограда и персика. Легкая газация и праздничное настроение.</div>
                     <span class="item-type">Игристый</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">ОБЛЕПИХОВЫЙ ДЖЕМ</div>
-                    <div class="item-desc">Согревающий чай с густым вкусом облепихи</div>
+                    <div class="item-desc">Согревающий чай с густым вкусом облепихи и медовыми акцентами. Витаминный заряд энергии.</div>
                     <span class="item-type">Ягодный</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">МАЛИНА С МЯТОЙ</div>
-                    <div class="item-desc">Сладкая малина в сочетании с освежающей мятой</div>
+                    <div class="item-desc">Сладкая малина в сочетании с освежающей мятой. Идеальный баланс ягодной сладости и свежести.</div>
                     <span class="item-type">Фруктовый</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">МИШКИ ГАММИ</div>
-                    <div class="item-desc">Веселый микс ягодных вкусов, напоминающий мармелад</div>
+                    <div class="item-desc">Веселый микс ягодных вкусов, напоминающий любимое лакомство. Сладкий и фруктовый напиток.</div>
                     <span class="item-type">Фруктовый</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">МОЛОЧНЫЙ УЛУН</div>
-                    <div class="item-desc">Тайваньский улун с нежным сливочным вкусом</div>
+                    <div class="item-desc">Тайваньский улун с нежным сливочным вкусом и молочным послевкусием. Изысканный и утонченный.</div>
                     <span class="item-type">Улун</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">ТАЙГА</div>
-                    <div class="item-desc">Согревающий сбор с хвойными нотами и дикими ягодами</div>
+                    <div class="item-desc">Согревающий сбор с хвойными нотами, дикими ягодами и травами. Аромат сибирского леса.</div>
                     <span class="item-type">Травяной сбор</span>
                 </div>
             </div>
@@ -366,38 +413,49 @@
         
         <!-- БЕЗАЛКОГОЛЬНЫЕ КОКТЕЙЛИ -->
         <div class="menu-section">
-            <h2 class="section-title">Коктейли</h2>
+            <h2 class="section-title">Безалкогольные коктейли</h2>
             <div class="menu-grid">
                 <div class="item-card">
                     <div class="item-name">МАНГО МАРАКУЙЯ</div>
-                    <div class="item-desc">Тропический микс спелого манго и маракуйи</div>
-                    <span class="item-type">Тропический</span>
+                    <div class="item-desc">Тропический микс спелого манго и страстной маракуйи. Сладкий и освежающий вкус лета.</div>
+                    <span class="item-type">Тропический • Сладкий</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">АРБУЗ ЗИЗИФОРА</div>
-                    <div class="item-desc">Сочный арбуз с освежающей мятой зизифоры</div>
-                    <span class="item-type">Фруктовый</span>
+                    <div class="item-desc">Сочный арбуз с освежающей мятой зизифоры. Фруктовая свежесть с мятным послевкусием.</div>
+                    <span class="item-type">Фруктовый • Мятный</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">КЛУБНИКА РЕВЕНЬ</div>
-                    <div class="item-desc">Ягодный дуэт сладкой клубники и кислого ревеня</div>
-                    <span class="item-type">Ягодный</span>
+                    <div class="item-desc">Ягодный дуэт сладкой клубники и кислого ревеня. Идеальный баланс кислотности и сладости.</div>
+                    <span class="item-type">Фруктовый • Кислый • Ягодный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ЧЁРНАЯ СМОРОДИНА ВЕРЕСК</div>
+                    <div class="item-desc">Глубокий ягодный вкус смородины с травянистыми нотами вереска. Насыщенный и ароматный.</div>
+                    <span class="item-type">Травянистый • Ягодный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ЛИМОННЫЙ МИРТ ДЫНЯ</div>
+                    <div class="item-desc">Цитрусовая свежесть лимона, сладость дыни и экзотические нотки мирта. Освежающий микс.</div>
+                    <span class="item-type">Цитрусовый • Сладкий • Фруктовый</span>
                 </div>
                 
                 <div class="item-card">
                     <div class="item-name">ГРЕЙПФРУТ АИР</div>
-                    <div class="item-desc">Терпкий грейпфрут с древесными нотами аира</div>
-                    <span class="item-type">Цитрусовый</span>
+                    <div class="item-desc">Терпкий грейпфрут с древесными нотами аира. Свежий и бодрящий цитрусовый коктейль.</div>
+                    <span class="item-type">Цитрусовый • Свежий • Древесный</span>
                 </div>
             </div>
         </div>
         
         <div class="footer-note">
-            НАСЛАЖДАЙТЕСЬ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
+            НАСЛАЖДАЙТЕСЬ ИЗЫСКАННЫМИ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
         </div>
     </div>
 </body>
 </html>
-
