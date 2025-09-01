@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чайная карта - VR LOUNGE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0418 0%, #1a0630 50%, #0a0418 100%);
+            color: #e0d6ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .triangles-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .triangle {
+            position: absolute;
+            background: linear-gradient(135deg, #8a2be2, #4b0082);
+            opacity: 0.3;
+        }
+        
+        .triangle-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: rotate(45deg);
+        }
+        
+        .triangle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            right: -50px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: rotate(225deg);
+            background: linear-gradient(135deg, #9370db, #6a5acd);
+        }
+        
+        .triangle-3 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: 10%;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: rotate(120deg);
+            opacity: 0.2;
+        }
+        
+        .triangle-4 {
+            width: 180px;
+            height: 180px;
+            bottom: 15%;
+            left: 15%;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: rotate(300deg);
+            opacity: 0.25;
+        }
+        
+        .triangle-5 {
+            width: 220px;
+            height: 220px;
+            top: 50%;
+            left: -50px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: rotate(75deg);
+            opacity: 0.15;
+        }
+        
+        .container {
+            background: rgba(20, 10, 35, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+        }
+        
+        .triangle-decoration {
+            position: absolute;
+            opacity: 0.2;
+        }
+        
+        .decoration-1 {
+            width: 150px;
+            height: 150px;
+            top: -50px;
+            right: -50px;
+            background: linear-gradient(135deg, #9370db, #6a5acd);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+        
+        .decoration-2 {
+            width: 180px;
+            height: 180px;
+            bottom: -70px;
+            left: -70px;
+            background: linear-gradient(135deg, #8a2be2, #4b0082);
+            clip-path: polygon(0 100%, 0 0, 100% 100%);
+        }
+        
+        .decoration-3 {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: -30px;
+            background: linear-gradient(135deg, #6a5acd, #4b0082);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #9370db, #8a2be2, #6a5acd, #9370db);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 30px rgba(138, 43, 226, 0.6);
+            }
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #b19cd9;
+            margin-bottom: 10px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .price-note {
+            color: #9370db;
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: rgba(138, 43, 226, 0.2);
+            border-radius: 35px;
+            display: inline-block;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tea-card {
+            background: rgba(30, 15, 50, 0.7);
+            padding: 25px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .tea-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.35);
+            background: rgba(35, 20, 55, 0.85);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+        
+        .tea-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, #8a2be2, #6a5acd, #9370db);
+        }
+        
+        .tea-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #b19cd9;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+        }
+        
+        .tea-desc {
+            font-size: 1.1rem;
+            color: #d8c7ff;
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 80px;
+        }
+        
+        .tea-type {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 6px 15px;
+            background: rgba(138, 43, 226, 0.25);
+            color: #b19cd9;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            color: #b19cd9;
+            font-size: 1.2rem;
+            padding-top: 25px;
+            border-top: 2px solid rgba(138, 43, 226, 0.4);
+            font-weight: 500;
+            text-shadow: 0 0 8px rgba(138, 43, 226, 0.4);
+            letter-spacing: 1px;
+        }
+        
+        .glow-effect {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .glow-1 {
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+        
+        .glow-2 {
+            bottom: -200px;
+            left: -200px;
+            background: radial-gradient(circle, rgba(106, 90, 205, 0.2) 0%, transparent 70%);
+            animation-delay: -2s;
+        }
+        
+        .glow-3 {
+            top: 30%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(147, 112, 219, 0.15) 0%, transparent 70%);
+            animation-delay: -4s;
+        }
+        
+        .vr-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            color: #8a2be2;
+            z-index: 0;
+        }
+        
+        .vr-1 { top: 15%; left: 5%; animation: pulse 4s infinite; }
+        .vr-2 { top: 25%; right: 10%; animation: pulse 5s infinite reverse; }
+        .vr-3 { bottom: 20%; left: 15%; animation: pulse 6s infinite; }
+        .vr-4 { bottom: 30%; right: 5%; animation: pulse 7s infinite reverse; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.2); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .price-note {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+            
+            .tea-card {
+                padding: 20px;
+            }
+            
+            .tea-name {
+                font-size: 1.4rem;
+            }
+            
+            .tea-desc {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="triangles-bg">
+        <div class="triangle triangle-1"></div>
+        <div class="triangle triangle-2"></div>
+        <div class="triangle triangle-3"></div>
+        <div class="triangle triangle-4"></div>
+        <div class="triangle triangle-5"></div>
+    </div>
+    
+    <div class="container">
+        <div class="glow-effect glow-1"></div>
+        <div class="glow-effect glow-2"></div>
+        <div class="glow-effect glow-3"></div>
+        
+        <div class="triangle-decoration decoration-1"></div>
+        <div class="triangle-decoration decoration-2"></div>
+        <div class="triangle-decoration decoration-3"></div>
+        
+        <div class="vr-icon">🕶️</div>
+        <div class="vr-icon">🎮</div>
+        <div class="vr-icon">👾</div>
+        <div class="vr-icon">🚀</div>
+        
+        <header>
+            <h1>VR LOUNGE</h1>
+            <div class="subtitle">ЧАЙНАЯ КАРТА</div>
+            <div class="price-note">ЧАЙНИК • 300₽</div>
+        </header>
+        
+        <div class="menu-grid">
+            <div class="tea-card">
+                <div class="tea-name">ВИШНЕВЫЙ ПУЭР</div>
+                <div class="tea-desc">Выдержанный пуэр с насыщенным вкусом спелой вишни. Глубокий аромат с фруктовыми нотами.</div>
+                <span class="tea-type">Ферментированный</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">МЯТА-МЕЛИССА</div>
+                <div class="tea-desc">Освежающий дуэт мяты и мелиссы с успокаивающим эффектом. Идеален для релаксации.</div>
+                <span class="tea-type">Травяной</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">ЗЕМЛЯНИКА СО СЛИВКАМИ</div>
+                <div class="tea-desc">Нежный чай с ароматом спелой земляники и сливочными нотками. Настоящее наслаждение.</div>
+                <span class="tea-type">Фруктовый</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">АССАМ</div>
+                <div class="tea-desc">Классический индийский чай с насыщенным вкусом и терпким ароматом. Бодрящий и тонизирующий.</div>
+                <span class="tea-type">Чёрный</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">СЕНЧА</div>
+                <div class="tea-desc">Японский зеленый чай с нежным травянистым вкусом и свежим ароматом. Богат антиоксидантами.</div>
+                <span class="tea-type">Зелёный</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">КОРОЛЕВСКИЙ КАРКАДЭ</div>
+                <div class="tea-desc">Благородный каркаде с насыщенным рубиновым цветом и изысканной кислинкой. Подается холодным.</div>
+                <span class="tea-type">Цветочный</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">ИСКРЫ ШАМПАНСКОГО</div>
+                <div class="tea-desc">Игристый чай с нотками белого винограда и персика. Легкая газация и праздничное настроение.</div>
+                <span class="tea-type">Игристый</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">ОБЛЕПИХОВЫЙ ДЖЕМ</div>
+                <div class="tea-desc">Согревающий чай с густым вкусом облепихи и медовыми акцентами. Витаминный заряд энергии.</div>
+                <span class="tea-type">Ягодный</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">МАЛИНА С МЯТОЙ</div>
+                <div class="tea-desc">Сладкая малина в сочетании с освежающей мятой. Идеальный баланс ягодной сладости и свежести.</div>
+                <span class="tea-type">Фруктовый</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">МИШКИ ГАММИ</div>
+                <div class="tea-desc">Веселый микс ягодных вкусов, напоминающий любимое лакомство. Сладкий и фруктовый напиток.</div>
+                <span class="tea-type">Фруктовый</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">МОЛОЧНЫЙ УЛУН</div>
+                <div class="tea-desc">Тайваньский улун с нежным сливочным вкусом и молочным послевкусием. Изысканный и утонченный.</div>
+                <span class="tea-type">Улун</span>
+            </div>
+            
+            <div class="tea-card">
+                <div class="tea-name">ТАЙГА</div>
+                <div class="tea-desc">Согревающий сбор с хвойными нотами, дикими ягодами и травами. Аромат сибирского леса.</div>
+                <span class="tea-type">Травяной сбор</span>
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            НАСЛАЖДАЙТЕСЬ ИЗЫСКАННЫМИ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
+        </div>
+    </div>
+</body>
+</html>
