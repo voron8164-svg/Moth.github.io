@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self';">
-    <title>Чайная карта - VR LOUNGE</title>
+    <title>Меню - VR LOUNGE</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -41,55 +40,68 @@
             position: absolute;
             background: linear-gradient(135deg, #8a2be2, #4b0082);
             opacity: 0.3;
+            transition: transform 2s ease-out;
         }
         
         .triangle-1 {
             width: 300px;
             height: 300px;
-            top: -100px;
-            left: -100px;
+            top: 10%;
+            left: 5%;
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            transform: rotate(45deg);
+            animation: floatTriangle 15s ease-in-out infinite;
         }
         
         .triangle-2 {
             width: 200px;
             height: 200px;
-            bottom: -50px;
-            right: -50px;
+            bottom: 15%;
+            right: 8%;
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            transform: rotate(225deg);
             background: linear-gradient(135deg, #9370db, #6a5acd);
+            animation: floatTriangle 12s ease-in-out infinite reverse;
         }
         
         .triangle-3 {
             width: 150px;
             height: 150px;
-            top: 20%;
-            right: 10%;
+            top: 25%;
+            right: 15%;
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            transform: rotate(120deg);
-            opacity: 0.2;
+            animation: floatTriangle 18s ease-in-out infinite;
         }
         
         .triangle-4 {
             width: 180px;
             height: 180px;
-            bottom: 15%;
-            left: 15%;
+            bottom: 25%;
+            left: 10%;
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            transform: rotate(300deg);
-            opacity: 0.25;
+            animation: floatTriangle 14s ease-in-out infinite reverse;
         }
         
         .triangle-5 {
             width: 220px;
             height: 220px;
-            top: 50%;
-            left: -50px;
+            top: 60%;
+            left: 5%;
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            transform: rotate(75deg);
-            opacity: 0.15;
+            animation: floatTriangle 16s ease-in-out infinite;
+        }
+
+        @keyframes floatTriangle {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) translateX(0px); 
+            }
+            25% { 
+                transform: translateY(-20px) rotate(5deg) translateX(15px); 
+            }
+            50% { 
+                transform: translateY(10px) rotate(-3deg) translateX(-10px); 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(2deg) translateX(8px); 
+            }
         }
         
         .container {
@@ -108,6 +120,7 @@
         .triangle-decoration {
             position: absolute;
             opacity: 0.2;
+            transition: transform 0.3s ease;
         }
         
         .decoration-1 {
@@ -135,6 +148,11 @@
             left: -30px;
             background: linear-gradient(135deg, #6a5acd, #4b0082);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .triangle-decoration:hover {
+            transform: scale(1.2);
+            opacity: 0.3;
         }
         
         header {
@@ -190,6 +208,35 @@
             box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
         }
         
+        .menu-section {
+            margin: 60px 0 40px 0;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #9370db;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(147, 112, 219, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #8a2be2, #6a5acd);
+            border-radius: 2px;
+        }
+        
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -197,7 +244,7 @@
             margin-top: 40px;
         }
         
-        .tea-card {
+        .item-card {
             background: rgba(30, 15, 50, 0.7);
             padding: 25px;
             border-radius: 20px;
@@ -208,14 +255,14 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
         
-        .tea-card:hover {
+        .item-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 15px 30px rgba(138, 43, 226, 0.35);
             background: rgba(35, 20, 55, 0.85);
             border-color: rgba(138, 43, 226, 0.5);
         }
         
-        .tea-card::before {
+        .item-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -225,7 +272,7 @@
             background: linear-gradient(to bottom, #8a2be2, #6a5acd, #9370db);
         }
         
-        .tea-name {
+        .item-name {
             font-size: 1.6rem;
             font-weight: 600;
             margin-bottom: 12px;
@@ -235,7 +282,7 @@
             text-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
         }
         
-        .tea-desc {
+        .item-desc {
             font-size: 1.1rem;
             color: #d8c7ff;
             line-height: 1.6;
@@ -243,7 +290,7 @@
             min-height: 80px;
         }
         
-        .tea-type {
+        .item-type {
             display: inline-block;
             margin-top: 15px;
             padding: 6px 15px;
@@ -307,24 +354,6 @@
             animation-delay: -4s;
         }
         
-        .vr-icon {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.1;
-            color: #8a2be2;
-            z-index: 0;
-        }
-        
-        .vr-1 { top: 15%; left: 5%; animation: pulse 4s infinite; }
-        .vr-2 { top: 25%; right: 10%; animation: pulse 5s infinite reverse; }
-        .vr-3 { bottom: 20%; left: 15%; animation: pulse 6s infinite; }
-        .vr-4 { bottom: 30%; right: 5%; animation: pulse 7s infinite reverse; }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.1; transform: scale(1); }
-            50% { opacity: 0.2; transform: scale(1.2); }
-        }
-        
         @media (max-width: 768px) {
             .container {
                 padding: 30px;
@@ -349,15 +378,15 @@
                 padding: 10px 20px;
             }
             
-            .tea-card {
+            .item-card {
                 padding: 20px;
             }
             
-            .tea-name {
+            .item-name {
                 font-size: 1.4rem;
             }
             
-            .tea-desc {
+            .item-desc {
                 font-size: 1rem;
             }
         }
@@ -381,84 +410,129 @@
         <div class="triangle-decoration decoration-2"></div>
         <div class="triangle-decoration decoration-3"></div>
         
-        
         <header>
             <h1>VR LOUNGE</h1>
-            <div class="subtitle">ЧАЙНАЯ КАРТА</div>
-            <div class="price-note">ЧАЙНИК • 300₽</div>
+            <div class="subtitle">ПРЕМИУМ МЕНЮ</div>
+            <div class="price-note">ЧАЙНИК • 300₽ | КОКТЕЙЛЬ • 450₽</div>
         </header>
         
-        <div class="menu-grid">
-            <div class="tea-card">
-                <div class="tea-name">ВИШНЕВЫЙ ПУЭР</div>
-                <div class="tea-desc">Выдержанный пуэр с насыщенным вкусом спелой вишни. Глубокий аромат с фруктовыми нотами.</div>
-                <span class="tea-type">Ферментированный</span>
+        <!-- ЧАЙНАЯ КАРТА -->
+        <div class="menu-section">
+            <h2 class="section-title">Чайная карта</h2>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-name">ВИШНЕВЫЙ ПУЭР</div>
+                    <div class="item-desc">Выдержанный пуэр с насыщенным вкусом спелой вишни. Глубокий аромат с фруктовыми нотами.</div>
+                    <span class="item-type">Ферментированный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">МЯТА-МЕЛИССА</div>
+                    <div class="item-desc">Освежающий дуэт мяты и мелиссы с успокаивающим эффектом. Идеален для релаксации.</div>
+                    <span class="item-type">Травяной</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ЗЕМЛЯНИКА СО СЛИВКАМИ</div>
+                    <div class="item-desc">Нежный чай с ароматом спелой земляники и сливочными нотками. Настоящее наслаждение.</div>
+                    <span class="item-type">Фруктовый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">АССАМ</div>
+                    <div class="item-desc">Классический индийский чай с насыщенным вкусом и терпким ароматом. Бодрящий и тонизирующий.</div>
+                    <span class="item-type">Чёрный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">СЕНЧА</div>
+                    <div class="item-desc">Японский зеленый чай с нежным травянистым вкусом и свежим ароматом. Богат антиоксидантами.</div>
+                    <span class="item-type">Зелёный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">КОРОЛЕВСКИЙ КАРКАДЭ</div>
+                    <div class="item-desc">Благородный каркаде с насыщенным рубиновым цветом и изысканной кислинкой. Подается холодным.</div>
+                    <span class="item-type">Цветочный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ИСКРЫ ШАМПАНСКОГО</div>
+                    <div class="item-desc">Игристый чай с нотками белого винограда и персика. Легкая газация и праздничное настроение.</div>
+                    <span class="item-type">Игристый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ОБЛЕПИХОВЫЙ ДЖЕМ</div>
+                    <div class="item-desc">Согревающий чай с густым вкусом облепихи и медовыми акцентами. Витаминный заряд энергии.</div>
+                    <span class="item-type">Ягодный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">МАЛИНА С МЯТОЙ</div>
+                    <div class="item-desc">Сладкая малина в сочетании с освежающей мятой. Идеальный баланс ягодной сладости и свежести.</div>
+                    <span class="item-type">Фруктовый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">МИШКИ ГАММИ</div>
+                    <div class="item-desc">Веселый микс ягодных вкусов, напоминающий любимое лакомство. Сладкий и фруктовый напиток.</div>
+                    <span class="item-type">Фруктовый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">МОЛОЧНЫЙ УЛУН</div>
+                    <div class="item-desc">Тайваньский улун с нежным сливочным вкусом и молочным послевкусием. Изысканный и утонченный.</div>
+                    <span class="item-type">Улун</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ТАЙГА</div>
+                    <div class="item-desc">Согревающий сбор с хвойными нотами, дикими ягодами и травами. Аромат сибирского леса.</div>
+                    <span class="item-type">Травяной сбор</span>
+                </div>
             </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">МЯТА-МЕЛИССА</div>
-                <div class="tea-desc">Освежающий дуэт мяты и мелиссы с успокаивающим эффектом. Идеален для релаксации.</div>
-                <span class="tea-type">Травяной</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">ЗЕМЛЯНИКА СО СЛИВКАМИ</div>
-                <div class="tea-desc">Нежный чай с ароматом спелой земляники и сливочными нотками. Настоящее наслаждение.</div>
-                <span class="tea-type">Фруктовый</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">АССАМ</div>
-                <div class="tea-desc">Классический индийский чай с насыщенным вкусом и терпким ароматом. Бодрящий и тонизирующий.</div>
-                <span class="tea-type">Чёрный</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">СЕНЧА</div>
-                <div class="tea-desc">Японский зеленый чай с нежным травянистым вкусом и свежим ароматом. Богат антиоксидантами.</div>
-                <span class="tea-type">Зелёный</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">КОРОЛЕВСКИЙ КАРКАДЭ</div>
-                <div class="tea-desc">Благородный каркаде с насыщенным рубиновым цветом и изысканной кислинкой. Подается холодным.</div>
-                <span class="tea-type">Цветочный</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">ИСКРЫ ШАМПАНСКОГО</div>
-                <div class="tea-desc">Игристый чай с нотками белого винограда и персика. Легкая газация и праздничное настроение.</div>
-                <span class="tea-type">Игристый</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">ОБЛЕПИХОВЫЙ ДЖЕМ</div>
-                <div class="tea-desc">Согревающий чай с густым вкусом облепихи и медовыми акцентами. Витаминный заряд энергии.</div>
-                <span class="tea-type">Ягодный</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">МАЛИНА С МЯТОЙ</div>
-                <div class="tea-desc">Сладкая малина в сочетании с освежающей мятой. Идеальный баланс ягодной сладости и свежести.</div>
-                <span class="tea-type">Фруктовый</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">МИШКИ ГАММИ</div>
-                <div class="tea-desc">Веселый микс ягодных вкусов, напоминающий любимое лакомство. Сладкий и фруктовый напиток.</div>
-                <span class="tea-type">Фруктовый</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">МОЛОЧНЫЙ УЛУН</div>
-                <div class="tea-desc">Тайваньский улун с нежным сливочным вкусом и молочным послевкусием. Изысканный и утонченный.</div>
-                <span class="tea-type">Улун</span>
-            </div>
-            
-            <div class="tea-card">
-                <div class="tea-name">ТАЙГА</div>
-                <div class="tea-desc">Согревающий сбор с хвойными нотами, дикими ягодами и травами. Аромат сибирского леса.</div>
-                <span class="tea-type">Травяной сбор</span>
+        </div>
+        
+        <!-- БЕЗАЛКОГОЛЬНЫЕ КОКТЕЙЛИ -->
+        <div class="menu-section">
+            <h2 class="section-title">Безалкогольные коктейли</h2>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-name">МАНГО МАРАКУЙЯ</div>
+                    <div class="item-desc">Тропический микс спелого манго и страстной маракуйи. Сладкий и освежающий вкус лета.</div>
+                    <span class="item-type">Тропический • Сладкий</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">АРБУЗ ЗИЗИФОРА</div>
+                    <div class="item-desc">Сочный арбуз с освежающей мятой зизифоры. Фруктовая свежесть с мятным послевкусием.</div>
+                    <span class="item-type">Фруктовый • Мятный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">КЛУБНИКА РЕВЕНЬ</div>
+                    <div class="item-desc">Ягодный дуэт сладкой клубники и кислого ревеня. Идеальный баланс кислотности и сладости.</div>
+                    <span class="item-type">Ягодный • Кислый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ЧЁРНАЯ СМОРОДИНА ВЕРЕСК</div>
+                    <div class="item-desc">Глубокий ягодный вкус смородины с травянистыми нотами вереска. Насыщенный и ароматный.</div>
+                    <span class="item-type">Ягодный • Травянистый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ЛИМОННЫЙ МИРТ ДЫНЯ</div>
+                    <div class="item-desc">Цитрусовая свежесть лимона, сладость дыни и экзотические нотки мирта. Освежающий микс.</div>
+                    <span class="item-type">Цитрусовый • Сладкий</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ГРЕЙПФРУТ АИР</div>
+                    <div class="item-desc">Горьковатый грейпфрут с древесными нотами аира. Свежий и бодрящий цитрусовый коктейль.</div>
+                    <span class="item-type">Цитрусовый • Древесный</span>
+                </div>
             </div>
         </div>
         
@@ -466,7 +540,22 @@
             НАСЛАЖДАЙТЕСЬ ИЗЫСКАННЫМИ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
         </div>
     </div>
+
+    <script>
+        // Анимация треугольников при движении мыши
+        document.addEventListener('mousemove', function(e) {
+            const triangles = document.querySelectorAll('.triangle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            triangles.forEach((triangle, index) => {
+                const speed = 0.01 + (index * 0.01);
+                const xOffset = (x - 0.5) * 50 * speed;
+                const yOffset = (y - 0.5) * 50 * speed;
+                
+                triangle.style.transform = `translate(${xOffset}px, ${yOffset}px) ${triangle.style.transform.split(' ')[1] || ''}`;
+            });
+        });
+    </script>
 </body>
-
 </html>
-
