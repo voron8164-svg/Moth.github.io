@@ -476,6 +476,21 @@
             НАСЛАЖДАЙТЕСЬ ИЗЫСКАННЫМИ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
         </div>
     </div>
+        <script>
+// Регистрация Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('✅ ServiceWorker зарегистрирован');
+      })
+      .catch(function(error) {
+        console.log('❌ Ошибка регистрации:', error);
+      });
+  });
+}
+</script>
 </body>
 </html>
+
 
