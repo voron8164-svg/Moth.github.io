@@ -26,290 +26,242 @@
             position: relative;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            touch-action: manipulation;
+        }
+
+        /* Стильный задний фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(106, 90, 205, 0.15) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.2) 75%),
+                linear-gradient(-45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.15) 75%);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            background-position: 0 0, 0 0, 0 0, 20px 20px;
+            z-index: -1;
+            animation: backgroundShift 40s infinite linear;
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0 0, 0 0, 0 0, 20px 20px; }
+            100% { background-position: 100px 100px, -100px -100px, 40px 40px, 60px 60px; }
+        }
+
+        /* Затемнение для лучшей читаемости */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(10, 4, 24, 0.92), rgba(26, 6, 48, 0.88));
+            z-index: -1;
         }
         
         .container {
-            background: linear-gradient(135deg, rgba(20, 10, 35, 0.95) 0%, rgba(10, 5, 20, 0.98) 100%);
+            background: linear-gradient(135deg, 
+                rgba(30, 15, 50, 0.96) 0%, 
+                rgba(20, 10, 35, 0.98) 50%,
+                rgba(30, 15, 50, 0.96) 100%);
             backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 25px 20px;
+            border-radius: 18px;
+            padding: 20px 15px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+            max-width: 500px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(138, 43, 226, 0.25);
             position: relative;
             overflow: hidden;
-            border: 2px solid #2a1b4d;
-        }
-
-        .black-stripe {
-            position: absolute;
-            background: linear-gradient(90deg, #000000, #1a1a1a, #000000);
-            height: 8px;
-            left: 0;
-            right: 0;
-            z-index: 2;
-        }
-
-        .stripe-top {
-            top: 0;
-            border-bottom: 2px solid #8a2be2;
-        }
-
-        .stripe-bottom {
-            bottom: 0;
-            border-top: 2px solid #8a2be2;
-        }
-
-        .stripe-middle {
-            top: 50%;
-            transform: translateY(-50%);
-            width: 90%;
-            left: 5%;
-            border-radius: 4px;
-            height: 6px;
-            background: linear-gradient(90deg, #000000, #8a2be2, #000000);
+            border: 1px solid rgba(138, 43, 226, 0.35);
         }
         
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             position: relative;
-            padding: 0 10px;
+            padding: 0 5px;
         }
         
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: linear-gradient(to right, #9370db, #8a2be2, #6a5acd);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px rgba(138, 43, 226, 0.5);
         }
         
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #b19cd9;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 500;
-            letter-spacing: 1px;
         }
         
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 30px;
-            padding: 0 10px;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 0 5px;
         }
         
         .price-item {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(106, 90, 205, 0.1));
-            padding: 15px 12px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, 
+                rgba(138, 43, 226, 0.12), 
+                rgba(106, 90, 205, 0.08));
+            padding: 12px 10px;
+            border-radius: 12px;
             text-align: center;
-            border: 1px solid rgba(138, 43, 226, 0.3);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.25);
         }
         
         .price-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #d8c7ff;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             font-weight: 500;
         }
         
         .price-value {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #9370db;
             font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 10px rgba(147, 112, 219, 0.4);
+            text-shadow: 0 0 8px rgba(147, 112, 219, 0.3);
         }
         
         .menu-section {
-            margin: 35px 0 25px 0;
-            padding: 0 10px;
+            margin: 25px 0 15px 0;
+            padding: 0 5px;
         }
         
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #9370db;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 8px rgba(147, 112, 219, 0.4);
-            position: relative;
-            padding-bottom: 12px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(to right, #8a2be2, #6a5acd);
-            border-radius: 2px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 6px rgba(147, 112, 219, 0.3);
         }
         
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 18px;
+            gap: 12px;
         }
         
         .item-card {
-            background: linear-gradient(135deg, rgba(30, 15, 50, 0.8), rgba(25, 12, 40, 0.9));
-            padding: 20px 18px;
-            border-radius: 18px;
-            transition: all 0.3s ease;
-            position: relative;
-            border: 1px solid rgba(138, 43, 226, 0.4);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-        }
-        
-        .item-card:active {
-            transform: scale(0.98);
-            box-shadow: 0 3px 10px rgba(138, 43, 226, 0.3);
-        }
-        
-        .item-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, #8a2be2, #6a5acd);
-            border-radius: 2px 0 0 2px;
+            background: linear-gradient(135deg, 
+                rgba(40, 20, 65, 0.7), 
+                rgba(30, 15, 50, 0.8));
+            padding: 15px;
+            border-radius: 14px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            /* Убраны все взаимодействия */
+            user-select: none;
+            -webkit-user-select: none;
+            pointer-events: none;
         }
         
         .item-name {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             color: #b19cd9;
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
         }
         
         .item-desc {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #d8c7ff;
-            line-height: 1.5;
+            line-height: 1.4;
             font-weight: 400;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .item-type {
             display: inline-block;
-            padding: 5px 12px;
-            background: rgba(138, 43, 226, 0.2);
+            padding: 4px 10px;
+            background: rgba(138, 43, 226, 0.18);
             color: #b19cd9;
-            border-radius: 15px;
-            font-size: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 500;
-            border: 1px solid rgba(138, 43, 226, 0.3);
+            border: 1px solid rgba(138, 43, 226, 0.25);
         }
         
         .footer-note {
             text-align: center;
-            margin-top: 35px;
+            margin-top: 25px;
             color: #b19cd9;
-            font-size: 1rem;
-            padding-top: 20px;
-            border-top: 1px solid rgba(138, 43, 226, 0.3);
+            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid rgba(138, 43, 226, 0.25);
             font-weight: 500;
-            letter-spacing: 0.5px;
-            padding: 0 10px;
         }
 
-        /* Анимации для мобильной оптимизации */
-        @media (prefers-reduced-motion: no-preference) {
-            .item-card {
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
-            }
+        /* Улучшенная прокрутка для мобильных */
+        .container {
+            -webkit-overflow-scrolling: touch;
+            overflow-y: auto;
+            max-height: 90vh;
         }
 
-        /* Адаптивность для очень маленьких экранов */
+        /* Оптимизация для очень маленьких экранов */
         @media (max-width: 380px) {
             h1 {
-                font-size: 2.2rem;
-                letter-spacing: 2px;
+                font-size: 1.8rem;
             }
             
             .section-title {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             .price-value {
-                font-size: 1.2rem;
-            }
-            
-            .item-name {
                 font-size: 1.1rem;
             }
             
+            .item-name {
+                font-size: 1rem;
+            }
+            
             .item-desc {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
             
             .container {
-                padding: 20px 15px;
-                border-radius: 18px;
+                padding: 15px 12px;
+                border-radius: 16px;
             }
         }
 
-        /* Оптимизация для тач-устройств */
-        @media (hover: none) and (pointer: coarse) {
-            .item-card:active {
-                transform: scale(0.95);
-                background: linear-gradient(135deg, rgba(35, 20, 55, 0.9), rgba(30, 15, 45, 0.95));
-            }
-        }
-
-        /* Улучшенная читаемость на мобильных */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-                font-size: 14px;
-            }
-            
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            .price-item {
-                padding: 12px 10px;
-            }
-            
-            .menu-grid {
-                gap: 15px;
-            }
-            
-            .item-card {
-                padding: 18px 15px;
+        /* Отключение анимаций для пользователей с prefer-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            body::before {
+                animation: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Черные полосы -->
-        <div class="black-stripe stripe-top"></div>
-        <div class="black-stripe stripe-middle"></div>
-        <div class="black-stripe stripe-bottom"></div>
-        
         <header>
             <h1>VR LOUNGE</h1>
             <div class="subtitle">МЕНЮ</div>
@@ -373,6 +325,42 @@
                     <div class="item-desc">Благородный каркаде с изысканной кислинкой</div>
                     <span class="item-type">Цветочный</span>
                 </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ИСКРЫ ШАМПАНСКОГО</div>
+                    <div class="item-desc">Игристый чай с нотками винограда и персика</div>
+                    <span class="item-type">Игристый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ОБЛЕПИХОВЫЙ ДЖЕМ</div>
+                    <div class="item-desc">Согревающий чай с густым вкусом облепихи</div>
+                    <span class="item-type">Ягодный</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">МАЛИНА С МЯТОЙ</div>
+                    <div class="item-desc">Сладкая малина в сочетании с освежающей мятой</div>
+                    <span class="item-type">Фруктовый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">МИШКИ ГАММИ</div>
+                    <div class="item-desc">Веселый микс ягодных вкусов, напоминающий мармелад</div>
+                    <span class="item-type">Фруктовый</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">МОЛОЧНЫЙ УЛУН</div>
+                    <div class="item-desc">Тайваньский улун с нежным сливочным вкусом</div>
+                    <span class="item-type">Улун</span>
+                </div>
+                
+                <div class="item-card">
+                    <div class="item-name">ТАЙГА</div>
+                    <div class="item-desc">Согревающий сбор с хвойными нотами и дикими ягодами</div>
+                    <span class="item-type">Травяной сбор</span>
+                </div>
             </div>
         </div>
         
@@ -410,32 +398,5 @@
             НАСЛАЖДАЙТЕСЬ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
         </div>
     </div>
-
-    <script>
-        // Оптимизированный скрипт для мобильных
-        document.addEventListener('DOMContentLoaded', function() {
-            // Улучшенная обработка касаний
-            const cards = document.querySelectorAll('.item-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    this.style.transform = 'scale(0.95)';
-                }, { passive: false });
-                
-                card.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
-        });
-
-        // Отключение анимаций для пользователей с prefer-reduced-motion
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.documentElement.style.setProperty('--animation-duration', '0.01ms');
-        }
-    </script>
 </body>
 </html>
-
-
-
