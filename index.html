@@ -585,44 +585,60 @@
 
     </div>
 
-    <script>
-        let currentActiveItem = null;
+   <script>
+    let currentActiveItem = null;
 
-        function showPriceInfo(type) {
-            if (currentActiveItem) {
-                currentActiveItem.classList.remove('active');
-                const info = currentActiveItem.querySelector('.price-info');
-                if (info) info.classList.remove('active');
-            }
-
-            const item = document.querySelector(`[onclick="showPriceInfo('${type}')"]`);
-            const info = document.getElementById(`${type}-info`);
-            
-            if (item && info) {
-                item.classList.add('active');
-                info.classList.add('active');
-                currentActiveItem = item;
-            }
+    function showPriceInfo(type) {
+        const item = document.querySelector(`[onclick="showPriceInfo('${type}')"]`);
+        const info = document.getElementById(`${type}-info`);
+        
+        // Если кликаем по уже активной кнопке - закрываем
+        if (currentActiveItem === item) {
+            item.classList.remove('active');
+            info.classList.remove('active');
+            currentActiveItem = null;
+            return;
+        }
+        
+        // Закрываем предыдущую открытую подсказку
+        if (currentActiveItem) {
+            currentActiveItem.classList.remove('active');
+            const prevInfo = currentActiveItem.querySelector('.price-info');
+            if (prevInfo) prevInfo.classList.remove('active');
         }
 
-        function closeInfo(event) {
-            event.stopPropagation();
-            
-            if (currentActiveItem) {
-                currentActiveItem.classList.remove('active');
-                const info = currentActiveItem.querySelector('.price-info');
-                if (info) info.classList.remove('active');
-                currentActiveItem = null;
-            }
+        // Открываем новую
+        if (item && info) {
+            item.classList.add('active');
+            info.classList.add('active');
+            currentActiveItem = item;
         }
+    }
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeInfo(event);
-            }
-        });
-    </script>
+    function closeInfo(event) {
+        event.stopPropagation();
+        
+        if (currentActiveItem) {
+            currentActiveItem.classList.remove('active');
+            const info = currentActiveItem.querySelector('.price-info');
+            if (info) info.classList.remove('active');
+            currentActiveItem = null;
+        }
+    }
 
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeInfo(event);
+        }
+    });
+
+    // Закрытие при клике вне подсказки
+    document.addEventListener('click', function(event) {
+        if (currentActiveItem && !event.target.closest('.price-item') && !event.target.closest('.price-info')) {
+            closeInfo(event);
+        }
+    });
+</script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
@@ -638,3 +654,4 @@
     </script>
 </body>
 </html>
+
