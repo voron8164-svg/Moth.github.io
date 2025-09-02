@@ -150,6 +150,23 @@
             box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
             z-index: 10;
         }
+
+        /* Три точки в углу */
+        .price-item::after {
+            content: '⋯';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: #9370db;
+            font-size: 1.2rem;
+            font-weight: bold;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .price-item:hover::after {
+            opacity: 1;
+        }
         
         .price-label {
             font-size: 0.9rem;
@@ -172,11 +189,11 @@
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(30, 15, 50, 0.95);
+            background: rgba(30, 15, 50, 0.98);
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid rgba(138, 43, 226, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             width: 250px;
             z-index: 100;
             margin-top: 10px;
@@ -214,21 +231,6 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 90;
-        }
-
-        .overlay.active {
-            display: block;
         }
         
         .menu-section {
@@ -393,8 +395,6 @@
     </style>
 </head>
 <body>
-    <div class="overlay" id="infoOverlay"></div>
-    
     <div class="container">
         <header>
             <h1>VR LOUNGE</h1>
@@ -437,7 +437,7 @@
                     <div class="price-info" id="visit-info">
                         <span class="price-info-close" onclick="closeInfo(event)">×</span>
                         <div class="price-info-title">Посещение 400₽*</div>
-                        <div class="price-info-desc">Цена актуальны на время работы клуба 14:00 - 23:00. После 23:00 уточнить у администраторов.</div>
+                        <div class="price-info-desc">Цены актуальны на время работы клуба 14:00 - 23:00. После 23:00 уточнять у администраторов.</div>
                     </div>
                 </div>
             </div>
@@ -525,7 +525,7 @@
                 </div>
                 
                 <div class="item-card">
-                    <div class="item-name">МОЛОЧНЫЙ УЛУН</div>
+                    <div class="item-name">МОЛОЧНЫЙ УЛУн</div>
                     <div class="item-desc">Тайваньский улун с нежным сливочным вкусом и молочным послевкусием. Изысканный и утонченный.</div>
                     <span class="item-type">Улун</span>
                 </div>
@@ -560,7 +560,7 @@
                 </div>
                 
                 <div class="item-card">
-                    <div class="item-name">ЧЁРНАЯ СМОРОДИНА ВЕРЕСК</div>
+                    <div class="item-name">ЧЁРНАя СМОРОДИНА ВЕРЕСК</div>
                     <div class="item-desc">Глубокий ягодный вкус смородины с травянистыми нотами вереска. Насыщенный и ароматный.</div>
                     <span class="item-type">Травянистый • Ягодный</span>
                 </div>
@@ -601,7 +601,6 @@
             if (item && info) {
                 item.classList.add('active');
                 info.classList.add('active');
-                document.getElementById('infoOverlay').classList.add('active');
                 currentActiveItem = item;
             }
         }
@@ -615,10 +614,7 @@
                 if (info) info.classList.remove('active');
                 currentActiveItem = null;
             }
-            document.getElementById('infoOverlay').classList.remove('active');
         }
-
-        document.getElementById('infoOverlay').addEventListener('click', closeInfo);
 
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
