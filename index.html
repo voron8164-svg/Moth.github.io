@@ -29,7 +29,6 @@
             touch-action: manipulation;
         }
 
-        /* Стильный задний фон */
         body::before {
             content: '';
             position: fixed;
@@ -53,7 +52,6 @@
             100% { background-position: 100px 100px, -100px -100px, 40px 40px, 60px 60px; }
         }
 
-        /* Затемнение для лучшей читаемости */
         body::after {
             content: '';
             position: fixed;
@@ -81,12 +79,10 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(138, 43, 226, 0.35);
-            /* Убираем скроллбар */
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
 
-        /* Убираем скроллбар для Webkit */
         .container::-webkit-scrollbar {
             display: none;
         }
@@ -136,6 +132,23 @@
             border-radius: 15px;
             text-align: center;
             border: 1px solid rgba(138, 43, 226, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .price-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.3);
+        }
+
+        .price-item.active {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, 
+                rgba(138, 43, 226, 0.25), 
+                rgba(106, 90, 205, 0.2));
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+            z-index: 10;
         }
         
         .price-label {
@@ -151,6 +164,71 @@
             color: #9370db;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 0 0 10px rgba(147, 112, 219, 0.4);
+        }
+        
+        .price-info {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 15, 50, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 250px;
+            z-index: 100;
+            margin-top: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .price-info.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .price-info-title {
+            font-weight: 600;
+            color: #9370db;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .price-info-desc {
+            color: #d8c7ff;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .price-info-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: #b19cd9;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+        }
+
+        .overlay.active {
+            display: block;
         }
         
         .menu-section {
@@ -197,7 +275,6 @@
             border-radius: 16px;
             border: 1px solid rgba(138, 43, 226, 0.3);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            /* Убираем взаимодействия */
             user-select: none;
             -webkit-user-select: none;
             pointer-events: none;
@@ -240,7 +317,6 @@
             font-weight: 500;
         }
 
-        /* Адаптивность для мобильных */
         @media (max-width: 768px) {
             .container {
                 max-width: 500px;
@@ -261,6 +337,12 @@
             
             .section-title {
                 font-size: 1.6rem;
+            }
+
+            .price-info {
+                width: 200px;
+                left: 50%;
+                transform: translateX(-50%);
             }
         }
 
@@ -297,9 +379,12 @@
             .item-desc {
                 font-size: 0.9rem;
             }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* Отключение анимаций для пользователей с prefer-reduced-motion */
         @media (prefers-reduced-motion: reduce) {
             body::before {
                 animation: none;
@@ -308,51 +393,74 @@
     </style>
 </head>
 <body>
+    <div class="overlay" id="infoOverlay"></div>
+    
     <div class="container">
         <header>
             <h1>VR LOUNGE</h1>
             <div class="subtitle">МЕНЮ</div>
             
             <div class="pricing-grid">
-                <div class="price-item">
+                <div class="price-item" onclick="showPriceInfo('tea')">
                     <div class="price-label">ЧАЙНИК</div>
                     <div class="price-value">300₽</div>
+                    <div class="price-info" id="tea-info">
+                        <span class="price-info-close" onclick="closeInfo(event)">×</span>
+                        <div class="price-info-title">Чайник 300₽</div>
+                        <div class="price-info-desc">Объем 900 мл. Возможность добавления горячей воды. Включает выбор из 12 сортов чая. </div>
+                    </div>
                 </div>
-                <div class="price-item">
+                
+                <div class="price-item" onclick="showPriceInfo('cocktail')">
                     <div class="price-label">КОКТЕЙЛЬ</div>
                     <div class="price-value">500/200₽</div>
+                    <div class="price-info" id="cocktail-info">
+                        <span class="price-info-close" onclick="closeInfo(event)">×</span>
+                        <div class="price-info-title">Коктейль 500₽/200₽</div>
+                        <div class="price-info-desc">500₽ - графин (1300мл). 200₽ - стакан (200мл). Подается со льдом и соломинкой.</div>
+                    </div>
                 </div>
-                <div class="price-item">
+                
+                <div class="price-item" onclick="showPriceInfo('steam')">
                     <div class="price-label">ПАРОВОЙ КОКТЕЙЛЬ</div>
                     <div class="price-value">400₽</div>
+                    <div class="price-info" id="steam-info">
+                        <span class="price-info-close" onclick="closeInfo(event)">×</span>
+                        <div class="price-info-title">Паровой коктейль 400/750₽</div>
+                        <div class="price-info-desc">Паровой коктейль в игровой зоне 400р. В зоне настольных игр 750р.</div>
+                    </div>
                 </div>
-                <div class="price-item">
+                
+                <div class="price-item" onclick="showPriceInfo('visit')">
                     <div class="price-label">ПОСЕЩЕНИЕ</div>
                     <div class="price-value">400₽*</div>
+                    <div class="price-info" id="visit-info">
+                        <span class="price-info-close" onclick="closeInfo(event)">×</span>
+                        <div class="price-info-title">Посещение 400₽*</div>
+                        <div class="price-info-desc">Цена актуальны на время работы клуба 14:00 - 23:00. После 23:00 уточнить у администраторов.</div>
+                    </div>
                 </div>
             </div>
         </header>
-            </header>  <!-- Закрытие header -->
-    <div style="text-align: center; margin: 25px 0;">
-        <a href="https://vk.com/vrclubkirov" 
-           target="_blank"
-           style="display: inline-block; 
-                  padding: 15px 30px; 
-                  background: linear-gradient(45deg, #8a2be2, #6a5acd);
-                  color: white; 
-                  text-decoration: none; 
-                  border-radius: 25px; 
-                  font-weight: 600;
-                  font-size: 1.2rem;
-                  transition: transform 0.3s ease;
-                  border: 2px solid rgba(255, 255, 255, 0.3);
-                  box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);">
-            🎮 ЗАПИСАТЬСЯ
-        </a>
-    </div>
-    <!-- ЧАЙНАЯ КАРТА --> 
-    <div class="menu-section">
-        <!-- ЧАЙНАЯ КАРТА -->
+
+        <div style="text-align: center; margin: 25px 0;">
+            <a href="https://vk.com/vrclubkirov" 
+               target="_blank"
+               style="display: inline-block; 
+                      padding: 15px 30px; 
+                      background: linear-gradient(45deg, #8a2be2, #6a5acd);
+                      color: white; 
+                      text-decoration: none; 
+                      border-radius: 25px; 
+                      font-weight: 600;
+                      font-size: 1.2rem;
+                      transition: transform 0.3s ease;
+                      border: 2px solid rgba(255, 255, 255, 0.3);
+                      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);">
+                🎮 ЗАПИСАТЬСЯ
+            </a>
+        </div>
+
         <div class="menu-section">
             <h2 class="section-title">Чайная карта</h2>
             <div class="menu-grid">
@@ -430,7 +538,6 @@
             </div>
         </div>
         
-        <!-- БЕЗАЛКОГОЛЬНЫЕ КОКТЕЙЛИ -->
         <div class="menu-section">
             <h2 class="section-title">Безалкогольные коктейли</h2>
             <div class="menu-grid">
@@ -475,27 +582,63 @@
         <div class="footer-note">
             НАСЛАЖДАЙТЕСЬ ИЗЫСКАННЫМИ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
         </div>
- <div class="footer-note">
-            *ЦЕНЫ УКАЗАНЫ НА ВРЕМЕННЫЕ РАМКИ РАБОТЫ КЛУБА 14:00 - 23:00
-        </div>
+
     </div>
-        <script>
-// Регистрация Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js')
-      .then(function(registration) {
-        console.log('✅ ServiceWorker зарегистрирован');
-      })
-      .catch(function(error) {
-        console.log('❌ Ошибка регистрации:', error);
-      });
-  });
-}
-</script>
+
+    <script>
+        let currentActiveItem = null;
+
+        function showPriceInfo(type) {
+            if (currentActiveItem) {
+                currentActiveItem.classList.remove('active');
+                const info = currentActiveItem.querySelector('.price-info');
+                if (info) info.classList.remove('active');
+            }
+
+            const item = document.querySelector(`[onclick="showPriceInfo('${type}')"]`);
+            const info = document.getElementById(`${type}-info`);
+            
+            if (item && info) {
+                item.classList.add('active');
+                info.classList.add('active');
+                document.getElementById('infoOverlay').classList.add('active');
+                currentActiveItem = item;
+            }
+        }
+
+        function closeInfo(event) {
+            event.stopPropagation();
+            
+            if (currentActiveItem) {
+                currentActiveItem.classList.remove('active');
+                const info = currentActiveItem.querySelector('.price-info');
+                if (info) info.classList.remove('active');
+                currentActiveItem = null;
+            }
+            document.getElementById('infoOverlay').classList.remove('active');
+        }
+
+        document.getElementById('infoOverlay').addEventListener('click', closeInfo);
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeInfo(event);
+            }
+        });
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('✅ ServiceWorker зарегистрирован');
+                    })
+                    .catch(function(error) {
+                        console.log('❌ Ошибка регистрации:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
-
-
-
-
