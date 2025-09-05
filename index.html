@@ -319,6 +319,84 @@
             font-weight: 500;
         }
 
+        /* Карусель */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            cursor: grab;
+        }
+
+        .carousel.dragging {
+            transition: none;
+            cursor: grabbing;
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            padding: 10px;
+            user-select: none;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(138, 43, 226, 0.3);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: rgba(138, 43, 226, 0.9);
+            transform: scale(1.2);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(138, 43, 226, 0.5);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(138, 43, 226, 0.8);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 max-width: 500px;
@@ -345,6 +423,15 @@
                 width: 200px;
                 left: 50%;
                 transform: translateX(-50%);
+            }
+
+            .carousel-item {
+                flex: 0 0 100%;
+            }
+
+            /* Скрываем стрелки на мобильных устройствах */
+            .carousel-btn {
+                display: none;
             }
         }
 
@@ -385,11 +472,21 @@
             .pricing-grid {
                 grid-template-columns: 1fr;
             }
+
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
             body::before {
                 animation: none;
+            }
+            
+            .carousel {
+                transition: none;
             }
         }
     </style>
@@ -463,118 +560,166 @@
 
         <div class="menu-section">
             <h2 class="section-title">Чайная карта</h2>
-            <div class="menu-grid">
-                <div class="item-card">
-                    <div class="item-name">ВИШНЕВЫЙ ПУЭР</div>
-                    <div class="item-desc">Выдержанный пуэр с насыщенным вкусом спелой вишни. Глубокий аромат с фруктовыми нотами.</div>
-                    <span class="item-type">Ферментированный</span>
+            
+            <div class="carousel-container">
+                <div class="carousel" id="tea-carousel">
+                    <!-- Чай 1-4 -->
+                    <div class="carousel-item">
+                        <div class="menu-grid">
+                            <div class="item-card">
+                                <div class="item-name">ВИШНЕВЫЙ ПУЭР</div>
+                                <div class="item-desc">Выдержанный пуэр с насыщенным вкусом спелой вишни. Глубокий аромат с фруктовыми нотами.</div>
+                                <span class="item-type">Ферментированный</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">МЯТА-МЕЛИССА</div>
+                                <div class="item-desc">Освежающий дуэт мяты и мелиссы с успокаивающим эффектом. Идеален для релаксации.</div>
+                                <span class="item-type">Травяной</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">ЗЕМЛЯНИКА СО СЛИВКАМИ</div>
+                                <div class="item-desc">Нежный чай с ароматом спелой земляники и сливочными нотками. Настоящее наслаждение.</div>
+                                <span class="item-type">Фруктовый</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">АССАМ</div>
+                                <div class="item-desc">Классический индийский чай с насыщенным вкусом и терпким ароматом. Бодрящий и тонизирующий.</div>
+                                <span class="item-type">Чёрный</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Чай 5-8 -->
+                    <div class="carousel-item">
+                        <div class="menu-grid">
+                            <div class="item-card">
+                                <div class="item-name">СЕНЧА</div>
+                                <div class="item-desc">Японский зеленый чай с нежным травянистым вкусом и свежим ароматом. Богат антиоксидантами.</div>
+                                <span class="item-type">Зелёный</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">КОРОЛЕВСКИЙ КАРКАДЭ</div>
+                                <div class="item-desc">Благородный каркаде с насыщенным рубиновым цветом и изысканной кислинкой. Подается холодным.</div>
+                                <span class="item-type">Цветочный</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">ИСКРЫ ШАМПАНСКОГО</div>
+                                <div class="item-desc">Игристый чай с нотками белого винограда и персика. Легкая газация и праздничное настроение.</div>
+                                <span class="item-type">Игристый</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">ОБЛЕПИХОВЫЙ ДЖЕМ</div>
+                                <div class="item-desc">Согревающий чай с густым вкусом облепихи и медовыми акцентами. Витаминный заряд энергии.</div>
+                                <span class="item-type">Ягодный</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Чай 9-12 -->
+                    <div class="carousel-item">
+                        <div class="menu-grid">
+                            <div class="item-card">
+                                <div class="item-name">МАЛИНА С МЯТОЙ</div>
+                                <div class="item-desc">Сладкая малина в сочетании с освежающей мятой. Идеальный баланс ягодной сладости и свежести.</div>
+                                <span class="item-type">Фруктовый</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">МИШКИ ГАММИ</div>
+                                <div class="item-desc">Веселый микс ягодных вкусов, напоминающий любимое лакомство. Сладкий и фруктовый напиток.</div>
+                                <span class="item-type">Фруктовый</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">МОЛОЧНЫЙ УЛУН</div>
+                                <div class="item-desc">Тайваньский улун с нежным сливочным вкусом и молочным послевкусием. Изысканный и утонченный.</div>
+                                <span class="item-type">Улун</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">ТАЙГА</div>
+                                <div class="item-desc">Согревающий сбор с хвойными нотами, дикими ягодами и травами. Аромат сибирского леса.</div>
+                                <span class="item-type">Травяной сбор</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="item-card">
-                    <div class="item-name">МЯТА-МЕЛИССА</div>
-                    <div class="item-desc">Освежающий дуэт мяты и мелиссы с успокаивающим эффектом. Идеален для релаксации.</div>
-                    <span class="item-type">Травяной</span>
-                </div>
+                <button class="carousel-btn prev" onclick="moveCarousel('tea', -1)">&#10094;</button>
+                <button class="carousel-btn next" onclick="moveCarousel('tea', 1)">&#10095;</button>
                 
-                <div class="item-card">
-                    <div class="item-name">ЗЕМЛЯНИКА СО СЛИВКАМИ</div>
-                    <div class="item-desc">Нежный чай с ароматом спелой земляники и сливочными нотками. Настоящее наслаждение.</div>
-                    <span class="item-type">Фруктовый</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">АССАМ</div>
-                    <div class="item-desc">Классический индийский чай с насыщенным вкусом и терпким ароматом. Бодрящий и тонизирующий.</div>
-                    <span class="item-type">Чёрный</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">СЕНЧА</div>
-                    <div class="item-desc">Японский зеленый чай с нежным травянистым вкусом и свежим ароматом. Богат антиоксидантами.</div>
-                    <span class="item-type">Зелёный</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">КОРОЛЕВСКИЙ КАРКАДЭ</div>
-                    <div class="item-desc">Благородный каркаде с насыщенным рубиновым цветом и изысканной кислинкой. Подается холодным.</div>
-                    <span class="item-type">Цветочный</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">ИСКРЫ ШАМПАНСКОГО</div>
-                    <div class="item-desc">Игристый чай с нотками белого винограда и персика. Легкая газация и праздничное настроение.</div>
-                    <span class="item-type">Игристый</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">ОБЛЕПИХОВЫЙ ДЖЕМ</div>
-                    <div class="item-desc">Согревающий чай с густым вкусом облепихи и медовыми акцентами. Витаминный заряд энергии.</div>
-                    <span class="item-type">Ягодный</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">МАЛИНА С МЯТОЙ</div>
-                    <div class="item-desc">Сладкая малина в сочетании с освежающей мятой. Идеальный баланс ягодной сладости и свежести.</div>
-                    <span class="item-type">Фруктовый</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">МИШКИ ГАММИ</div>
-                    <div class="item-desc">Веселый микс ягодных вкусов, напоминающий любимое лакомство. Сладкий и фруктовый напиток.</div>
-                    <span class="item-type">Фруктовый</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">МОЛОЧНЫЙ УЛУН</div>
-                    <div class="item-desc">Тайваньский улун с нежным сливочным вкусом и молочным послевкусием. Изысканный и утонченный.</div>
-                    <span class="item-type">Улун</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">ТАЙГА</div>
-                    <div class="item-desc">Согревающий сбор с хвойными нотами, дикими ягодами и травами. Аромат сибирского леса.</div>
-                    <span class="item-type">Травяной сбор</span>
+                <div class="carousel-nav" id="tea-nav">
+                    <span class="carousel-dot active" onclick="showCarouselSlide('tea', 0)"></span>
+                    <span class="carousel-dot" onclick="showCarouselSlide('tea', 1)"></span>
+                    <span class="carousel-dot" onclick="showCarouselSlide('tea', 2)"></span>
                 </div>
             </div>
         </div>
         
         <div class="menu-section">
             <h2 class="section-title">Безалкогольные коктейли</h2>
-            <div class="menu-grid">
-                <div class="item-card">
-                    <div class="item-name">МАНГО МАРАКУЙЯ</div>
-                    <div class="item-desc">Тропический микс спелого манго и страстной маракуйи. Сладкий и освежающий вкус лета.</div>
-                    <span class="item-type">Тропический • Сладкий</span>
+            
+            <div class="carousel-container">
+                <div class="carousel" id="cocktail-carousel">
+                    <!-- Коктейли 1-3 -->
+                    <div class="carousel-item">
+                        <div class="menu-grid">
+                            <div class="item-card">
+                                <div class="item-name">МАНГО МАРАКУЙЯ</div>
+                                <div class="item-desc">Тропический микс спелого манго и страстной маракуйи. Сладкий и освежающий вкус лета.</div>
+                                <span class="item-type">Тропический • Сладкий</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">АРБУЗ ЗИЗИФОРА</div>
+                                <div class="item-desc">Сочный арбуз с освежающей мятой зизифоры. Фруктовая свежесть с мятным послевкусием.</div>
+                                <span class="item-type">Фруктовый • Мятный</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">КЛУБНИКА РЕВЕНЬ</div>
+                                <div class="item-desc">Ягодный дуэт сладкой клубники и кислого ревеня. Идеальный баланс кислотности и сладости.</div>
+                                <span class="item-type">Фруктовый • Кислый • Ягодный</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Коктейли 4-6 -->
+                    <div class="carousel-item">
+                        <div class="menu-grid">
+                            <div class="item-card">
+                                <div class="item-name">ЧЁРНАя СМОРОДИНА ВЕРЕСК</div>
+                                <div class="item-desc">Глубокий ягодный вкус смородины с травянистыми нотами вереска. Насыщенный и ароматный.</div>
+                                <span class="item-type">Травянистый • Ягодный</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">ЛИМОННЫЙ МИРТ ДЫНЯ</div>
+                                <div class="item-desc">Цитрусовая свежесть лимона, сладость дыни и экзотические нотки мирта. Освежающий микс.</div>
+                                <span class="item-type">Цитрусовый • Сладкий • Фруктовый</span>
+                            </div>
+                            
+                            <div class="item-card">
+                                <div class="item-name">ГРЕЙПФРУТ АИР</div>
+                                <div class="item-desc">Терпкий грейпфрут с древесными нотами аира. Свежий и бодрящий цитрусовый коктейль.</div>
+                                <span class="item-type">Цитрусовый • Свежий • Древесный</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="item-card">
-                    <div class="item-name">АРБУЗ ЗИЗИФОРА</div>
-                    <div class="item-desc">Сочный арбуз с освежающей мятой зизифоры. Фруктовая свежесть с мятным послевкусием.</div>
-                    <span class="item-type">Фруктовый • Мятный</span>
-                </div>
+                <button class="carousel-btn prev" onclick="moveCarousel('cocktail', -1)">&#10094;</button>
+                <button class="carousel-btn next" onclick="moveCarousel('cocktail', 1)">&#10095;</button>
                 
-                <div class="item-card">
-                    <div class="item-name">КЛУБНИКА РЕВЕНЬ</div>
-                    <div class="item-desc">Ягодный дуэт сладкой клубники и кислого ревеня. Идеальный баланс кислотности и сладости.</div>
-                    <span class="item-type">Фруктовый • Кислый • Ягодный</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">ЧЁРНАЯ СМОРОДИНА ВЕРЕСК</div>
-                    <div class="item-desc">Глубокий ягодный вкус смородины с травянистыми нотами вереска. Насыщенный и ароматный.</div>
-                    <span class="item-type">Травянистый • Ягодный</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">ЛИМОННЫЙ МИРТ ДЫНЯ</div>
-                    <div class="item-desc">Цитрусовая свежесть лимона, сладость дыни и экзотические нотки мирта. Освежающий микс.</div>
-                    <span class="item-type">Цитрусовый • Сладкий • Фруктовый</span>
-                </div>
-                
-                <div class="item-card">
-                    <div class="item-name">ГРЕЙПФРУТ АИР</div>
-                    <div class="item-desc">Терпкий грейпфрут с древесными нотами аира. Свежий и бодрящий цитрусовый коктейль.</div>
-                    <span class="item-type">Цитрусовый • Свежий • Древесный</span>
+                <div class="carousel-nav" id="cocktail-nav">
+                    <span class="carousel-dot active" onclick="showCarouselSlide('cocktail', 0)"></span>
+                    <span class="carousel-dot" onclick="showCarouselSlide('cocktail', 1)"></span>
                 </div>
             </div>
         </div>
@@ -582,78 +727,211 @@
         <div class="footer-note">
             НАСЛАЖДАЙТЕСЬ ИЗЫСКАННЫМИ ВКУСАМИ В ВИРТУАЛЬНОЙ РЕАЛЬНОСТИ
         </div>
-
     </div>
 
-   <script>
-    let currentActiveItem = null;
-
-    function showPriceInfo(type) {
-        const item = document.querySelector(`[onclick="showPriceInfo('${type}')"]`);
-        const info = document.getElementById(`${type}-info`);
-        
-        // Если кликаем по уже активной кнопке - закрываем
-        if (currentActiveItem === item) {
-            item.classList.remove('active');
-            info.classList.remove('active');
-            currentActiveItem = null;
-            return;
-        }
-        
-        // Закрываем предыдущую открытую подсказку
-        if (currentActiveItem) {
-            currentActiveItem.classList.remove('active');
-            const prevInfo = currentActiveItem.querySelector('.price-info');
-            if (prevInfo) prevInfo.classList.remove('active');
-        }
-
-        // Открываем новую
-        if (item && info) {
-            item.classList.add('active');
-            info.classList.add('active');
-            currentActiveItem = item;
-        }
-    }
-
-    function closeInfo(event) {
-        event.stopPropagation();
-        
-        if (currentActiveItem) {
-            currentActiveItem.classList.remove('active');
-            const info = currentActiveItem.querySelector('.price-info');
-            if (info) info.classList.remove('active');
-            currentActiveItem = null;
-        }
-    }
-
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeInfo(event);
-        }
-    });
-
-    // Закрытие при клике вне подсказки
-    document.addEventListener('click', function(event) {
-        if (currentActiveItem && !event.target.closest('.price-item') && !event.target.closest('.price-info')) {
-            closeInfo(event);
-        }
-    });
-</script>
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                        console.log('✅ ServiceWorker зарегистрирован');
-                    })
-                    .catch(function(error) {
-                        console.log('❌ Ошибка регистрации:', error);
-                    });
+        let currentActiveItem = null;
+
+        function showPriceInfo(type) {
+            const item = document.querySelector(`[onclick="showPriceInfo('${type}')"]`);
+            const info = document.getElementById(`${type}-info`);
+            
+            // Если кликаем по уже активной кнопке - закрываем
+            if (currentActiveItem === item) {
+                item.classList.remove('active');
+                info.classList.remove('active');
+                currentActiveItem = null;
+                return;
+            }
+            
+            // Закрываем предыдущую открытую подсказку
+            if (currentActiveItem) {
+                currentActiveItem.classList.remove('active');
+                const prevInfo = currentActiveItem.querySelector('.price-info');
+                if (prevInfo) prevInfo.classList.remove('active');
+            }
+
+            // Открываем новую
+            if (item && info) {
+                item.classList.add('active');
+                info.classList.add('active');
+                currentActiveItem = item;
+            }
+        }
+
+        function closeInfo(event) {
+            event.stopPropagation();
+            
+            if (currentActiveItem) {
+                currentActiveItem.classList.remove('active');
+                const info = currentActiveItem.querySelector('.price-info');
+                if (info) info.classList.remove('active');
+                currentActiveItem = null;
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeInfo(event);
+            }
+        });
+
+        // Закрытие при клике вне подсказки
+        document.addEventListener('click', function(event) {
+            if (currentActiveItem && !event.target.closest('.price-item') && !event.target.closest('.price-info')) {
+                closeInfo(event);
+            }
+        });
+
+        // Карусель
+        const carousels = {
+            'tea': { 
+                currentIndex: 0, 
+                totalSlides: 3,
+                isDragging: false,
+                startPos: 0,
+                currentTranslate: 0,
+                prevTranslate: 0,
+                animationID: null
+            },
+            'cocktail': { 
+                currentIndex: 0, 
+                totalSlides: 2,
+                isDragging: false,
+                startPos: 0,
+                currentTranslate: 0,
+                prevTranslate: 0,
+                animationID: null
+            }
+        };
+
+        function moveCarousel(type, direction) {
+            const carousel = carousels[type];
+            carousel.currentIndex = (carousel.currentIndex + direction + carousel.totalSlides) % carousel.totalSlides;
+            updateCarousel(type);
+        }
+
+        function showCarouselSlide(type, index) {
+            carousels[type].currentIndex = index;
+            updateCarousel(type);
+        }
+
+        function updateCarousel(type) {
+            const carousel = carousels[type];
+            const carouselElement = document.getElementById(`${type}-carousel`);
+            const navElement = document.getElementById(`${type}-nav`);
+            
+            // Обновляем позицию карусели
+            carouselElement.style.transform = `translateX(-${carousel.currentIndex * 100}%)`;
+            
+            // Обновляем точки навигации
+            const dots = navElement.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                if (index === carousel.currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
             });
         }
+
+        // Добавляем обработчики свайпов для мобильных устройств
+        function setupCarouselSwipe(type) {
+            const carousel = carousels[type];
+            const carouselElement = document.getElementById(`${type}-carousel`);
+            const container = carouselElement.parentElement;
+            
+            // События для мыши
+            container.addEventListener('mousedown', dragStart);
+            container.addEventListener('touchstart', dragStart);
+            
+            // События для движения
+            container.addEventListener('mousemove', drag);
+            container.addEventListener('touchmove', drag);
+            
+            // События для окончания перетаскивания
+            container.addEventListener('mouseup', dragEnd);
+            container.addEventListener('mouseleave', dragEnd);
+            container.addEventListener('touchend', dragEnd);
+            
+            function dragStart(event) {
+                // Для touch событий
+                if (event.type === 'touchstart') {
+                    carousel.startPos = event.touches[0].clientX;
+                } else {
+                    carousel.startPos = event.clientX;
+                    event.preventDefault(); // Предотвращаем выделение текста
+                }
+                
+                carousel.isDragging = true;
+                carouselElement.classList.add('dragging');
+                
+                // Запускаем анимацию
+                carousel.animationID = requestAnimationFrame(animation);
+            }
+            
+            function drag(event) {
+                if (!carousel.isDragging) return;
+                
+                let currentPosition = 0;
+                if (event.type === 'touchmove') {
+                    currentPosition = event.touches[0].clientX;
+                } else {
+                    currentPosition = event.clientX;
+                }
+                
+                // Вычисляем смещение
+                carousel.currentTranslate = carousel.prevTranslate + currentPosition - carousel.startPos;
+            }
+            
+            function dragEnd() {
+                if (!carousel.isDragging) return;
+                
+                carousel.isDragging = false;
+                cancelAnimationFrame(carousel.animationID);
+                
+                // Определяем, был ли это свайп
+                const movedBy = carousel.currentTranslate - carousel.prevTranslate;
+                
+                // Если перемещение значительное (более 50px) - меняем слайд
+                if (movedBy < -50 && carousel.currentIndex < carousel.totalSlides - 1) {
+                    carousel.currentIndex++;
+                }
+                
+                if (movedBy > 50 && carousel.currentIndex > 0) {
+                    carousel.currentIndex--;
+                }
+                
+                // Сбрасываем позицию и обновляем карусель
+                carousel.currentTranslate = -carousel.currentIndex * container.offsetWidth;
+                carousel.prevTranslate = carousel.currentTranslate;
+                
+                updateCarouselPosition(type);
+                carouselElement.classList.remove('dragging');
+            }
+            
+            function animation() {
+                updateCarouselPosition(type);
+                if (carousel.isDragging) {
+                    carousel.animationID = requestAnimationFrame(animation);
+                }
+            }
+            
+            function updateCarouselPosition(type) {
+                const carouselElement = document.getElementById(`${type}-carousel`);
+                carouselElement.style.transform = `translateX(${carousels[type].currentTranslate}px)`;
+            }
+        }
+
+        // Инициализируем свайпы для обеих каруселей
+        setupCarouselSwipe('tea');
+        setupCarouselSwipe('cocktail');
+
+        // Автопрокрутка каруселей (опционально)
+        // setInterval(() => {
+        //     moveCarousel('tea', 1);
+        //     moveCarousel('cocktail', 1);
+        // }, 5000);
     </script>
 </body>
 </html>
-
-
-
