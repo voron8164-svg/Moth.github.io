@@ -119,6 +119,8 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 14px;
             margin-top: 28px;
+            position: relative;
+            z-index: 10;
         }
 
         .price-item {
@@ -131,6 +133,7 @@
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: visible;
+            z-index: 1;
         }
 
         .price-item:hover {
@@ -143,6 +146,7 @@
             background: linear-gradient(160deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.15));
             border-color: rgba(168, 85, 247, 0.8);
             box-shadow: 0 12px 35px rgba(168, 85, 247, 0.4);
+            z-index: 50;
         }
 
         .price-item .dots {
@@ -180,14 +184,15 @@
             top: calc(100% + 10px);
             left: 50%;
             transform: translateX(-50%);
-            background: #140823; /* полностью непрозрачный фон */
+            background: #140823;
             border: 1px solid rgba(168, 85, 247, 0.6);
             border-radius: 14px;
             padding: 16px;
             width: 260px;
-            z-index: 100;
+            z-index: 1000;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
             text-align: left;
+            isolation: isolate;
         }
 
         .price-info.active {
@@ -302,7 +307,6 @@
             opacity: 0.7;
         }
 
-        /* Акцентная полоска для авторских чаёв */
         .item-card.author::before {
             background: linear-gradient(90deg, #f472b6, #c084fc, #22d3ee);
             opacity: 1;
@@ -771,7 +775,6 @@
 
             if (!slider || !slides.length) return;
 
-            // Создаём точки
             slides.forEach((_, i) => {
                 const dot = document.createElement('div');
                 dot.className = 'dot' + (i === 0 ? ' active' : '');
@@ -783,7 +786,6 @@
 
             const dots = dotsContainer.querySelectorAll('.dot');
 
-            // Обновление активной точки
             function updateDots() {
                 const scrollLeft = slider.scrollLeft;
                 const slideWidth = slides[0].offsetWidth + 16;
@@ -795,7 +797,6 @@
                 window.requestAnimationFrame(updateDots);
             });
 
-            // Кнопки навигации
             function getScrollAmount() {
                 return slides[0].offsetWidth + 16;
             }
@@ -808,7 +809,6 @@
                 slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
             });
 
-            // Перетаскивание мышью
             let isDown = false, startX, scrollStart;
             slider.addEventListener('mousedown', e => {
                 isDown = true;
@@ -828,7 +828,6 @@
             slider.style.cursor = 'grab';
         }
 
-        // Запускаем оба слайдера
         initSlider('teaSlider', 'prevBtn', 'nextBtn', 'sliderDots');
         initSlider('authorSlider', 'authorPrevBtn', 'authorNextBtn', 'authorDots');
     </script>
